@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation schema to DtoIn generator</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body class="bg-light">
+    <div class="alert alert-info rounded-0">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    This project is still in <strong>Alpha</strong>. Use is only on your <strong>own risk</strong>!
+                </div>
+                <div class="col-auto">
+                    version 0.0.1-alpha
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5 mb-3">
+        <div class="row mb-4">
+            <div class="col">
+                <h1>Validation schema to DtoIn generator</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!--<h4>Options</h4>-->
+
+                <div class="form-group row">
+                    <label for="randomSeed" class="col-sm-2 col-form-label text-right">
+                        Random seed
+                    </label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" placeholder="Randomly" id="randomSeed">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2 mb-3">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2>Validation Schema:</h2>
+                <div class="form-group">
+                    <textarea id="input" class="form-control h-auto text-monospace" rows="15">const jokeDtoInType = shape({
+  id: mongoId(),
+  joke: string(20,50),
+  author: oneOf(["Karel", "Pepa", "Ivan"]),
+  averageRating: float(0, 5, 1),
+  comments: array(shape({
+    id: mongoId(),
+    author: oneOf(["Jana", "Petr", "Lukáš"]),
+    rating: integer(0,5),
+    opinion: string(/(not|very) funny/)
+  }), 2, 4)
+});</textarea>
+
+                    </div>
+                <div class="alert alert-danger d-none" id="error"></div>
+                <div class="alert alert-success d-none" id="valid">
+                    Validation schema <strong>is valid</strong>.
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2>Generated DtoIn:</h2>
+                <div class="form-group">
+                    <pre id="output" class="form-control h-auto bg-light text-monospace" readonly></pre>
+                </div>
+                <div class="text-right">
+                    Generate as:
+                    <select class="ml-1 custom-select custom-select-sm w-auto">
+                        <option value="json">JSON</option>
+                        <option value="java" disabled>Java</option>
+                        <option value="javascript" disabled>JavaScript</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mb-5">
+        <div class="alert alert-warning" role="alert">
+            <h4 class="alert-heading">Know issues!</h4>
+            <p><strong>Everything is generated like it has isRequired() (for now).</strong></p>
+            <p><strong>These things are not implemented yet:</strong></p>
+            <div class="card-columns">
+                <ul>
+                <li>date()</li>
+                <li>date(f)</li>
+                <li>date(f, d0, d1)</li>
+                <li>time()</li>
+                <li>time(f)</li>
+                <li>time(f, t0, t1)</li>
+                <li>datetime(f)</li>
+                <li>datetime(f, dt0, dt1)</li>
+                <li>shape({key0:type0, key1:type1, ...}, s)</li>
+                <li>shape({}, nostrict)</li>
+                <li>shape({}, nostrict, s)</li>
+                <li>map(key_type, value_type)</li>
+                <li>map(key_type, value_type, n)</li>
+                <li>map(key_type, value_type, n0, n1)</li>
+                <li>base64()</li>
+                <li>uu5String()</li>
+                <li>uu5String(n)</li>
+                <li>uu5Json()</li>
+                <li>uu5Json(n)</li>
+                <li>id() - <strong>Since I have no idea what it is for!</strong></li>
+                <li>hexa32Code()</li>
+                <li>hexa64Code()</li>
+                <li>binary()</li>
+                <li>isRequired(["key0", key1", ...])</li>
+                <li>stringSetOf(["value0", ... ])</li>
+                <li>stringSetOf(["value0", ... ], delimiter)</li>
+            </ul>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="./bundle.js"></script></body>
+</html>

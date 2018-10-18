@@ -1,0 +1,12 @@
+textarea {
+    resize: none!important;
+    white-space: pre-wrap;
+    word-wrap: normal;
+    overflow: auto;
+    overflow-y: hidden;
+}
+.custom-select:focus,
+input:focus,
+textarea:focus {
+    box-shadow: 1px 1px 7px rgba(0,123,255,.25)!important;
+}
