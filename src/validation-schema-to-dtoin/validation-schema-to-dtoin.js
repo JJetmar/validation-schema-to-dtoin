@@ -17,22 +17,22 @@ import ArrayType from "./types/array-type";
 
 const validationTypes = {
     // Basic types
-    "string": (par1, par2) => new StringType(par1, par2),
-    "integer": (par1, par2) => new IntegerType(par1, par2),
-    "boolean": () => new BooleanType(),
-    "number": (par1, par2) => new NumberType(par1, par2),
-    "float": (par1, par2, par3) => new FloatType(par1, par2, par3),
+    "string": (...args) => new StringType(args),
+    "integer": (...args) => new IntegerType(args),
+    "boolean": (...args) => new BooleanType(args),
+    "number": (...args) => new NumberType(args),
+    "float": (...args) => new FloatType(args),
 
     // Function types
-    "array": (par1, par2, par3) => new ArrayType(par1, par2, par3),
-    "code": () => new CodeType(),
-    "dataKey": () => new DataKeyType(),
-    "datetime": () => new DatetimeType(),
-    "id": () => new IdType(),
-    "mongoId": () => new MongoIdType(),
-    "oneOf": (par1) => new OneOfType(par1),
-    "uuIdentity": () => new UuIdentityType(),
-    "uri": () => new UriType(),
+    "array": (...args) => new ArrayType(args),
+    "code": (...args) => new CodeType(args),
+    "dataKey": (...args) => new DataKeyType(args),
+    "datetime": (...args) => new DatetimeType(args),
+    "id": (...args) => new IdType(args),
+    "mongoId": (...args) => new MongoIdType(args),
+    "oneOf": (...args) => new OneOfType(args),
+    "uuIdentity": (...args) => new UuIdentityType(args),
+    "uri": (...args) => new UriType(args),
 
     // Inner Shape
     "shape": (innerShape) => new ShapeType(innerShape)

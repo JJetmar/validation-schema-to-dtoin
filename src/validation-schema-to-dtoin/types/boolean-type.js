@@ -1,17 +1,15 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class BooleanType extends ValidationType {
+export default class BooleanType extends ValidationType {
 
-    constructor() {
-        super();
-    }
+    TYPE_NAME = "booleanType";
+    UU5_TYPE_NAME = "boolean";
 
     generate() {
-        return this.resultSolver(() => {
-            return random.boolean();
+        return this.mapParams({
+            "": () => random.boolean()
         });
     }
 
 }
-export default BooleanType;

@@ -1,17 +1,15 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class UuIdentityType extends ValidationType {
+export default class UuIdentityType extends ValidationType {
 
-    constructor() {
-        super();
-    }
+    TYPE_NAME = "uuIdentityType";
+    UU5_TYPE_NAME = "uuIdentity";
 
     generate() {
-        return this.resultSolver(() => {
-            return random.regExp(/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/);
+        return this.mapParams({
+            "": () => random.regExp(/^[0-9]{1,4}-[0-9]{1,4}(-[0-9]{1,4}(-[0-9]{1,4})?)?$/)
         });
     }
 
 }
-export default UuIdentityType;

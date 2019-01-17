@@ -1,17 +1,15 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class CodeType extends ValidationType {
+export default class CodeType extends ValidationType {
 
-    constructor(par1, par2, par3) {
-        super();
-    }
+    TYPE_NAME = "codeType";
+    UU5_TYPE_NAME = "code";
 
     generate() {
-        return this.resultSolver(() => {
-            return random.regExp(/^[0-9a-zA-Z_]{3,64}$/);
+        return this.mapParams({
+            "": () => random.regExp(/^[0-9a-zA-Z_]{3,64}$/)
         });
     }
 
 }
-export default CodeType;

@@ -1,30 +1,20 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class FloatType extends ValidationType {
+export default class FloatType extends ValidationType {
 
-    constructor(par1, par2, par3) {
-        super();
-
-        this._par1 = par1;
-        this._par2 = par2;
-        this._par3 = par3;
-    }
+    TYPE_NAME = "floatType";
+    UU5_TYPE_NAME = "float";
 
     generate() {
         return this.resultSolver(() => {
-            if (this._par1 == null && this._par2 == null && this._par3 == null) {
-                return random.decimal();
-            } else if (this._par1 != null && this._par2 == null && this._par3 == null) {
-                return random.decimal(null, null, this._par1);
-            } else if (this._par1 != null && this._par2 != null && this._par3 == null) {
-                return random.decimal(0, this._par1, this._par2);
-            } else if (this._par1 != null && this._par2 != null && this._par3 != null) {
-                return random.decimal(this._par1, this._par2, this._par3);
-            }
-            // TODO Throw error
+            return this.mapParams({
+                "": () => random.decimal(),
+                "number": (params) => random.decimal(null, null, params[0]),
+                "number, number": (params) => random.decimal(0, params[0], params[1]),
+                "number, number, number": (params) => random.decimal(params[0], params[1], params[2])
+            });
         });
     }
 
 }
-export default FloatType;

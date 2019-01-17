@@ -1,20 +1,17 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class IntegerType extends ValidationType {
+export default class IntegerType extends ValidationType {
 
-    constructor(par1, par2) {
-        super();
-
-        this._par1 = par1;
-        this._par2 = par2;
-    }
+    TYPE_NAME = "integerType";
+    UU5_TYPE_NAME = "integer";
 
     generate() {
-        return this.resultSolver(() => {
-            return random.integer(this._par1, this._par2);
+        return this.mapParams({
+            "": () => random.integer(),
+            "number": (params) => random.integer(params[0]),
+            "number, number": (params) => random.integer(params[0], params[1])
         });
     }
 
 }
-export default IntegerType;

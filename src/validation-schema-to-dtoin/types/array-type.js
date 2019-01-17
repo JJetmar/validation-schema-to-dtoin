@@ -1,38 +1,49 @@
 import ValidationType from "../core/types/validation-type";
 import { random } from "../core/random";
+import ShapeType from "./shape-type";
 
 export default class ArrayType extends ValidationType {
 
-    constructor(par1, par2, par3) {
-        super();
-        this._par1 = par1;
-        this._par2 = par2;
-        this._par3 = par3;
-    }
+    TYPE_NAME = "arrayType";
+    UU5_TYPE_NAME = "array";
 
     generate() {
-        return this.resultSolver(() => {
-            let generateType = () => random.object(), minLength = 0, maxLength;
-            if (this._par1 != null) {
-                generateType = () => this._par1;
+        return this.mapParams({
+            "": () => {
+                return this.generateArray();
+            },
+            "any": (params) => {
+                return this.generateArray(params[0]);
+            },
+            "any, number": (params) => {
+                return this.generateArray(params[0], params[1]);
+            },
+            "any, number, number": (params) => {
+                return this.generateArray(params[0], params[1], params[2]);
             }
-            if (this._par2 != null && this._par3 != null) {
-                minLength = this._par2;
-                maxLength = this._par3;
-            } else if (this._par2 != null && this._par3 == null) {
-                maxLength = this._par2;
-            }
-            else {
-                maxLength = 10; // TODO to config value
-            }
-
-            let length = random.integer(minLength, maxLength);
-            let result = [];
-            for (let i = 0; i < length; i++) {
-                result.push(generateType());
-            }
-            return result;
         });
+    }
+
+    generateArray(shape, min, max) { // TODO config
+        shape = shape ? new ShapeType(shape) : {
+            generate: () => random.object()
+        };
+
+        min = min != null ? min : 0;
+        if (min < 0) {
+            throw new Error("The minimum length for array should be 0 or greater.")
+        }
+
+        max = max != null ? max : min + 10;
+        if (max < min) {
+            throw new Error("The maximum length for array should be greater than minimum.")
+        }
+
+        let result = [];
+        for (let i = 0; i < random.integer(min, max); i++) {
+            result.push(shape.generate());
+        }
+        return result;
     }
 
 }

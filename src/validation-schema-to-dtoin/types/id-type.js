@@ -1,16 +1,15 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class IdType extends ValidationType {
+export default class IdType extends ValidationType {
 
-    constructor() {
-        super();
-    }
+    TYPE_NAME = "idType";
+    UU5_TYPE_NAME = "id";
 
     generate() {
-        //return random.regExp(/^(?=[0-9a-f]+$)(.{24}|.{32})$/);
-        throw "Validation type id() was not implemented yet.";
+        return this.mapParams({
+            "": () => random.regExp(/^([0-9a-f]{24})|([0-9a-f]{32})$/)
+        });
     }
 
 }
-export default IdType;

@@ -3,21 +3,15 @@ import { random } from "../core/random";
 
 export default class StringType extends ValidationType {
 
-    constructor(par1, par2) {
-        super();
-
-        this._par1 = par1;
-        this._par2 = par2;
-    }
+    TYPE_NAME = "stringType";
+    UU5_TYPE_NAME = "string";
 
     generate() {
-        return this.resultSolver(() => {
-            if (this._par1 instanceof RegExp) {
-                return random.regExp(this._par1);
-            }
-            else {
-                return random.string(this._par1, this._par2);
-            }
+        return this.mapParams({
+            "": () => random.string(),
+            "regExp": (params) => random.regExp(params[0]),
+            "number": (params) => random.string(params[0]),
+            "number, number": (params) => random.string(params[0], params[1])
         });
     }
 

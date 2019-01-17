@@ -1,17 +1,15 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class MongoIdType extends ValidationType {
+export default class MongoIdType extends ValidationType {
 
-    constructor() {
-        super();
-    }
+    TYPE_NAME = "mongoIdType";
+    UU5_TYPE_NAME = "mongoId";
 
     generate() {
-        return this.resultSolver(() => {
-            return random.regExp(/^[0-9a-f]{24}$/);
+        return this.mapParams({
+            "": () => random.hexdec(24, 24)
         });
     }
 
 }
-export default MongoIdType;

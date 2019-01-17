@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './bootstrap-custom.scss';
 import '../../src/public/style.css';
 import { random } from "../validation-schema-to-dtoin/core/random";
 import generateDtoIn from "../validation-schema-to-dtoin/validation-schema-to-dtoin";
@@ -25,6 +25,7 @@ let debouncer = new Debouncer(() => {
     try {
         random.setSeed(randomSeedElement.value || pageInvited);
 
+        location.hash = "#" + btoa(unescape(encodeURIComponent(schema)));
         localStorage.setItem("LAST_VALIDATION_SCHEMA", schema);
         outputElement.innerHTML = generateDtoIn(schema);
 
@@ -36,7 +37,7 @@ let debouncer = new Debouncer(() => {
         validAlertElement.classList.remove("d-none");
         errorAlertElement.classList.add("d-none");
     } catch (error) {
-        errorAlertElement.innerText = error;
+        errorAlertElement.innerHTML = error;
 
         outputElement.classList.add("d-none");
 
@@ -93,8 +94,15 @@ let inputEvent = new Event('input', {
     'bubbles': true,
     'cancelable': true
 });
-const LAST_VALIDATION_SCHEMA = localStorage.getItem("LAST_VALIDATION_SCHEMA");
-if (LAST_VALIDATION_SCHEMA != null) {
-    inputElement.value = LAST_VALIDATION_SCHEMA;//.replace(/\n\r?/g, '<br/>');
+
+let visibleValidationSchema;
+try {
+    visibleValidationSchema = decodeURIComponent(escape(atob(location.hash.substr(1))));
+} catch(e) {
+    visibleValidationSchema = localStorage.getItem("LAST_VALIDATION_SCHEMA")
+}
+
+if (visibleValidationSchema) {
+    inputElement.value = visibleValidationSchema;
 }
 inputElement.dispatchEvent(inputEvent);

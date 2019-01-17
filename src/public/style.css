@@ -1,6 +1,6 @@
 textarea {
     resize: none!important;
-    white-space: pre-wrap;
+    white-space: pre;
     word-wrap: normal;
     overflow: auto;
     overflow-y: hidden;

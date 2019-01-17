@@ -19,7 +19,7 @@ export default class Debouncer {
             clearTimeout(this._timer);
         }
 
-        if (typeof this._precall === "function") {
+        if (this._timer == null && typeof this._precall === "function") {
             this._precall();
         }
 
@@ -29,7 +29,7 @@ export default class Debouncer {
             if (typeof this._callback === "function") {
                 this._callback();
             }
-        }
+        };
 
         let nowDate = new Date();
         if (this._lastRun == null || this._lastRun.getTime() + this._debounceTime < nowDate.getTime()) {

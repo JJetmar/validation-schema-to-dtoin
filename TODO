@@ -1,0 +1,4 @@
+Integer apod.
+- pořadí parametrů, od nejmenšího po největší
+
+resolveType -> zachytávat vyjímky a zobrazovat odkud byly volány.

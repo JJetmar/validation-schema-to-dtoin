@@ -38,7 +38,7 @@ class Random {
         }
 
         // TODO fix random function
-        let s = 0.5 + 0.5 * Math.sin(this._nextSeed());
+        let s = 0.5 + 0.5 * Math.sin(Random.prototype._nextSeed());
         let res = min + (Math.round(s * (max - min)));
         return res;
     }
@@ -73,7 +73,9 @@ class Random {
     string(par1, par2) {
         let minLength = (par1 != null && par2 != null ? par1 : 0);
         let maxLength = (par1 != null && par2 != null ? par2 : par1) || 100; // TODO to config value
-        return this.regExp(new RegExp("[a-zA-Z0-9]{" + minLength + ","+ (maxLength - 1) +"}")); // TODO to config value
+        let finalLength = par1 === par2 ? minLength : minLength + "," + maxLength;
+
+        return this.regExp(new RegExp("[a-zA-Z0-9]{" + finalLength +"}")); // TODO to config value
     }
 
     regExp(regularExpression) {
@@ -83,7 +85,9 @@ class Random {
     hexdec(par1, par2) {
         let min = par1 != null && par2 != null ? par1 : 0;
         let max = par1 != null && par2 != null ? par2 : 32;
-        return this.regExp(new RegExp("[0-9a-f]{" + min + "," + max + "}"));
+        let finalLength = par1 === par2 ? min : min + "," + max;
+
+        return this.regExp(new RegExp("[0-9a-f]{" + finalLength + "}"));
     }
 
     object() {

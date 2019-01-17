@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: __dirname + '/dist', // Folder to store generated bundle
         filename: 'bundle.js',  // Name of generated bundle after build
-        publicPath: './' // public URL of the output directory when referenced in a browser
+        publicPath: '/' // public URL of the output directory when referenced in a browser
     },
     module: {  // where we defined file patterns and their loaders
         rules: [
@@ -23,6 +23,20 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.scss$/,
+                use: [{
+                loader: "style-loader"
+                    }, {
+                        loader: "css-loader"
+                    }, {
+                        loader: "sass-loader",
+                        options: {
+                            includePaths: ["absolute/path/a", "absolute/path/b"]
+                        }
+                    }
+                ]
             }
         ]
     },

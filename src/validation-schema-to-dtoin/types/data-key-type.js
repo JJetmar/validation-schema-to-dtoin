@@ -3,13 +3,12 @@ import { random } from "../core/random";
 
 export default class DataKeyType extends ValidationType {
 
-    constructor(par1) {
-        super();
-    }
+    TYPE_NAME = "dataKeyType";
+    UU5_TYPE_NAME = "dataKey";
 
     generate() {
-        return this.resultSolver(() => {
-            return random.regExp(/^[0-9a-zA-Z_\-]{3,256}$/);
+        return this.mapParams({
+            "": () => random.regExp(/^[0-9a-zA-Z_\-]{3,256}$/)
         });
     }
 

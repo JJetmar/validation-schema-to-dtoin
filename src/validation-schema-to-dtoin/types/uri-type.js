@@ -1,17 +1,15 @@
 import ValidationType from "../core/types/validation-type";
 import {random} from "../core/random";
 
-class UriType extends ValidationType {
+export default class UriType extends ValidationType {
 
-    constructor() {
-        super();
-    }
+    TYPE_NAME = "uriType";
+    UU5_TYPE_NAME = "uri";
 
     generate() {
-        return this.resultSolver(() => {
-            return random.regExp(/https?:\/\/(www\.)?[a-z](-?[a-z]{1,4}){3,5}\.(com|cz|co\.uk|uk|de|it|sk)/);
+        return this.mapParams({
+            "": () => random.regExp(/https?:\/\/(www\.)?[a-z](-?[a-z]{1,4}){3,5}\.(com|cz|co\.uk|uk|de|it|sk)/)
         });
     }
 
 }
-export default UriType;
