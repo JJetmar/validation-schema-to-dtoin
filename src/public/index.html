@@ -12,7 +12,7 @@
                     This project is still in <strong>Alpha</strong>. Use it only on your <strong>own risk</strong>!
                 </div>
                 <div class="col-auto">
-                    version 0.0.2-alpha
+                    version 0.0.3-alpha
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
     <div class="container mt-5 mb-3">
         <div class="row mb-4">
             <div class="col">
-                <h1>Validation schema to DtoIn generator</h1>
+                <h1 class="text-lg-center">Validation schema to DtoIn generator</h1>
             </div>
         </div>
         <div class="row">
@@ -38,12 +38,11 @@
             </div>
         </div>
     </div>
-    <div class="container mt-2 mb-3">
+    <div class="container-fluid mt-2 mb-3">
         <div class="row">
             <div class="col-lg-6">
                 <div class="position-sticky" style="top: 16px">
-
-                    <h2>Validation Schema:</h2>
+                    <h2 class="text-lg-right mb-lg-3">Validation Schema:</h2>
                     <div class="form-group">
                         <textarea id="input" class="form-control h-auto text-monospace" rows="15">const jokeDtoInType = shape({
   id: mongoId(),
@@ -67,7 +66,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="position-sticky" style="top: 16px">
-                    <h2>Generated DtoIn:</h2>
+                    <h2 class="mb-lg-3">Generated DtoIn:</h2>
                     <div class="form-group">
                         <pre id="output" class="form-control h-auto bg-light text-monospace" readonly></pre>
                     </div>
@@ -121,6 +120,12 @@
             <hr/>
 
             <h4 class="alert-heading">Changelog</h4>
+            <p><strong>0.0.3-alpha (2020-07-14)</strong></p>
+            <ul>
+                <li>Fixed empty always empty string if no parameters set.</li>
+                <li>Added possibility to detect null type.</li>
+                <li>Larger input for Validation schema and generated DtoIn.</li>
+            </ul>
             <p><strong>0.0.2-alpha (2019-01-19)</strong></p>
             <ul>
                 <li>Added dynamic url for sharing validation schemas with your friends!</li>

@@ -38,12 +38,11 @@
             </div>
         </div>
     </div>
-    <div class="container mt-2 mb-3">
+    <div class="container-fluid mt-2 mb-3">
         <div class="row">
             <div class="col-lg-6">
                 <div class="position-sticky" style="top: 16px">
-
-                    <h2>Validation Schema:</h2>
+                    <h2 class="text-lg-right">Validation Schema:</h2>
                     <div class="form-group">
                         <textarea id="input" class="form-control h-auto text-monospace" rows="15">const jokeDtoInType = shape({
   id: mongoId(),
@@ -121,6 +120,12 @@
             <hr/>
 
             <h4 class="alert-heading">Changelog</h4>
+            <p><strong>0.0.3-alpha (2020-07-14)</strong></p>
+            <ul>
+                <li>Fixed empty always empty string if no parameters set.</li>
+                <li>Added possibility to detect null type.</li>
+                <li>Larger input for DtoIn and DtoOut.</li>
+            </ul>
             <p><strong>0.0.2-alpha (2019-01-19)</strong></p>
             <ul>
                 <li>Added dynamic url for sharing validation schemas with your friends!</li>

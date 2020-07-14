@@ -28,12 +28,14 @@ class Random {
         if (par1 != null && par2 != null) {
            min = par1;
            max = par2;
-        } else if (par1 != null && par2 == null) {
+        } else if (par1 != null && par2 === undefined) {
             min = 0;
             max = par1;
         }
-        else {
+        if (min == null) {
             min = -10000; // TODO to config value
+        }
+        if (max == null) {
             max = 10000; // TODO to config value
         }
 
@@ -47,15 +49,18 @@ class Random {
         let min, max;
         let precision = (par3 != null ? par3 : 6); // TODO to config value
 
-        if (par1 != null && par2 != null) {
+        if (par1 !== undefined && par2 !== undefined) {
             min = par1;
             max = par2;
-        } else if (par1 != null && par2 == null) {
+        } else if (par1 !== undefined && par2 === undefined) {
             min = 0;
             max = par1;
         }
-        else {
+
+        if (min == null) {
             min = -10000; // TODO to config value
+        }
+        if (max == null) {
             max = 10000; // TODO to config value
         }
 
@@ -71,9 +76,9 @@ class Random {
     }
 
     string(par1, par2) {
-        let minLength = (par1 != null && par2 != null ? par1 : 0);
-        let maxLength = (par1 != null && par2 != null ? par2 : par1) || 100; // TODO to config value
-        let finalLength = par1 === par2 ? minLength : minLength + "," + maxLength;
+        let minLength = (par1 != null && par2 !== undefined ? par1 : 0);
+        let maxLength = par2 !== undefined ? par2 : par1 || 100; // TODO to config value
+        let finalLength = minLength === maxLength ? minLength : minLength + "," + maxLength;
 
         return this.regExp(new RegExp("[a-zA-Z0-9]{" + finalLength +"}")); // TODO to config value
     }

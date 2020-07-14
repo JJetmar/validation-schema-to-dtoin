@@ -1,6 +1,6 @@
 {
   "name": "validation-schema-to-dtoin",
-  "version": "1.0.0",
+  "version": "0.0.3-alpha",
   "description": "Online tool which allows to generate Dto (JSON) from validation schema.",
   "main": "webpack.config.js",
   "dependencies": {

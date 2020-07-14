@@ -34,8 +34,18 @@ export default class ValidationType {
             let paramTypesSplitted = paramTypes ? paramTypes.split(/\s*[, ]\s*/) : [];
             if (paramTypesSplitted.length === this._params.length) {
                 let result = true;
+
                 for (let i = 0; i < this._params.length; i++) {
-                    result &= [this.getArgumentType(this._params[i]), "any"].includes(paramTypesSplitted[i]);
+                    // alternative types
+                    let altResult = false;
+                    for (let altType of paramTypesSplitted[i].split(/\|/)) {
+                        altResult |= [this.getArgumentType(this._params[i]), "any"].includes(altType);
+                        if (altResult) {
+                            break;
+                        }
+                    }
+                    result &= altResult;
+
                 }
                 if (result) {
                     return this.resultSolver(() => params[paramTypes](this._params));
@@ -47,7 +57,10 @@ export default class ValidationType {
 
     getArgumentType(obj) {
         let resultType;
-        if (obj.TYPE_NAME != null) {
+        if (obj === null) {
+            return "null";
+        }
+        else if (obj.TYPE_NAME != null) {
             resultType = obj.TYPE_NAME;
         } else if (obj.constructor) {
             resultType = obj.constructor.name.charAt(0).toLowerCase() + obj.constructor.name.slice(1);
