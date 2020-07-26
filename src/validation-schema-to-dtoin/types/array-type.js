@@ -25,9 +25,11 @@ export default class ArrayType extends ValidationType {
     }
 
     generateArray(shape, min, max) { // TODO config
-        shape = shape ? new ShapeType(shape) : {
-            generate: () => random.object()
-        };
+        if (!shape) {
+            shape = {
+                generate: () => random.object()
+            };
+        }
 
         min = min != null ? min : 0;
         if (min < 0) {

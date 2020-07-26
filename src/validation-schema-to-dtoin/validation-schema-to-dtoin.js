@@ -14,6 +14,8 @@ import CodeType from "./types/code-type";
 import OneOfType from "./types/one-of-type";
 import DataKeyType from "./types/data-key-type";
 import ArrayType from "./types/array-type";
+import Hexa32CodeType from "./types/hexa32-code-type";
+import Hexa64CodeType from "./types/hexa64-code-type";
 
 const validationTypes = {
     // Basic types
@@ -30,6 +32,8 @@ const validationTypes = {
     "datetime": (...args) => new DatetimeType(args),
     "id": (...args) => new IdType(args),
     "mongoId": (...args) => new MongoIdType(args),
+    "hexa32Code": (...args) => new Hexa32CodeType(args),
+    "hexa64Code": (...args) => new Hexa64CodeType(args),
     "oneOf": (...args) => new OneOfType(args),
     "uuIdentity": (...args) => new UuIdentityType(args),
     "uri": (...args) => new UriType(args),
@@ -37,16 +41,18 @@ const validationTypes = {
     // Inner Shape
     "shape": (innerShape) => new ShapeType(innerShape)
 };
+// TODO automatically
+// aliases
+validationTypes.dateTime = validationTypes.datetime;
 
-let validationTypeFunctions = "";
+let validationTypeFunctions = [];
 for (let type in validationTypes) {
-    validationTypeFunctions += "var " + type + "=" + (validationTypes[type].toString() + ";");
+    validationTypeFunctions.push("var " + type + "=" + (validationTypes[type].toString() + ";"));
 }
 
 let generateDtoIn = (schema) => {
     let varName = schema.match(/\s*(const|var|let)\s+(\w+)\s*=/);
-    let result = JSON.stringify(eval(validationTypeFunctions + schema + ";" + varName[2]), validationTypeSolver, 2);
-    return result;
+    return JSON.stringify(eval(validationTypeFunctions.join(";") + ";" + schema + ";" + varName[2]), validationTypeSolver, 2);
 };
 
 export default generateDtoIn;

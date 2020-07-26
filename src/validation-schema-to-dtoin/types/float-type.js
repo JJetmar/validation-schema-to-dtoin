@@ -12,7 +12,7 @@ export default class FloatType extends ValidationType {
                 "": () => random.decimal(),
                 "number": (params) => random.decimal(null, null, params[0]),
                 "number, number": (params) => random.decimal(0, params[0], params[1]),
-                "number, number|null, number": (params) => random.decimal(params[0], params[1], params[2])
+                "number|null, number|null, number": (params) => random.decimal(params[0], params[1], params[2])
             });
         });
     }

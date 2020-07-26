@@ -71,6 +71,6 @@ export default class ValidationType {
     }
 
     throwInvalidArgument() {
-        throw `Undefined signature for ${this.UU5_TYPE_NAME}(${(this._params.map(arg => this.getArgumentType(arg)).join(", "))}).`;
+        throw `Undefined signature for <strong>${this.UU5_TYPE_NAME}(${(this._params.map(arg => this.getArgumentType(arg)).join(", "))})</strong>.`;
     }
 }
