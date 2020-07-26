@@ -30,10 +30,9 @@ export default class ShapeType extends ValidationType {
                 case "function":
                     throw `Unable to assign <strong>not called</strong> function <strong>${type.name}</strong> to the key <strong>${key}</strong>. Did you mean to use <strong>${type.name}()</strong>?`;
                 case "object":
-                    if (!(type instanceof ShapeType)) {
+                    if (!type.TYPE_NAME) {
                         throw `Unable to assign object <strong>${type.toString()}</strong> to the key <strong>${key}</strong>.`;
                     }
-                    break;
             }
         }
         return this.resultSolver(() => this.inshape);
