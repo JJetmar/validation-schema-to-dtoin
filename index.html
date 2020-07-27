@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validation schema to DtoIn generator</title>
+</head>
+<body class="bg-light">
+    <div class="alert alert-info rounded-0 px-0">
+        <div class="container-fluid">
+            <div class="row align-items-baseline">
+                <div class="col-12 col-md">
+                    This project is still in <strong>Alpha</strong>. Use it only on your <strong>own risk</strong>! (Always check your usage according to <a href="https://docs.plus4u.net/uaf/uuapp/uuappserver/book/page?code=validation_00">specification</a>)
+                </div>
+                <div class="col-auto text-center text-md-right mt-2 mt-md-0">
+                    version 0.0.4-alpha
+                </div>
+                <div class="col-auto text-right mt-2 mt-md-0 pl-0">
+                    <a href="https://github.com/JJetmar/validation-schema-to-dtoin-issues/issues" class="btn btn-sm btn-dark">Report bug / Request feature</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4 mb-3">
+        <div class="row mb-4">
+            <div class="col">
+                <h1 class="text-center">Validation schema to DtoIn&nbsp;generator</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <!--<h4>Options</h4>-->
+
+                <div class="form-group row">
+                    <label for="randomSeed" class="col-sm-3 col-form-label text-right">
+                        Random seed
+                    </label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" placeholder="Randomly" id="randomSeed">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mt-2 mb-3">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="position-sticky" style="top: 16px">
+                    <h2 class="mb-lg-3">Validation Schema:</h2>
+                    <div class="form-group">
+                        <textarea id="input" class="form-control h-auto text-monospace" style="max-height: calc(100vh - 10rem); overflow: auto" rows="15">const jokeDtoInType = shape({
+  id: mongoId(),
+  joke: string(20,50).isRequired(),
+  author: oneOf(["Karel", "Pepa", "Ivan"]),
+  averageRating: float(0, 5, 1),
+  comments: array(shape({
+    id: mongoId(),
+    author: oneOf(["Jana", "Petr", "Lukáš"]),
+    rating: integer(0,5),
+    opinion: string(/(not|very) funny/)
+  }), 2, 4)
+});</textarea>
+
+                        </div>
+                    <div class="alert alert-danger d-none" id="error"></div>
+                    <div class="alert alert-success d-none" id="valid">
+                        Validation schema <strong>seems to be valid</strong>.
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-3 mt-md-0">
+                <div class="position-sticky" style="top: 16px">
+                    <h2 class="mb-lg-3">Generated DtoIn:</h2>
+                    <div class="form-group">
+                        <pre id="output" class="form-control h-auto bg-light text-monospace" readonly></pre>
+                    </div>
+                    <div class="text-right">
+                        Generate as:
+                        <select class="ml-1 custom-select custom-select-sm w-auto">
+                            <option value="json">JSON</option>
+                            <option value="java" disabled>Java</option>
+                            <option value="javascript" disabled>JavaScript</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid mb-4">
+        <div class="alert alert-warning pb-4" role="alert">
+            <h4 class="alert-heading">Known issues <small>(also see already <a href="https://github.com/JJetmar/validation-schema-to-dtoin-issues/issues">reported issues</a>)</small></h4>
+            <p><strong>Everything is generated like it has isRequired() (for now).</strong></p>
+            <p><strong>These things are not implemented yet:</strong></p>
+            <div class="card-columns">
+                <ul>
+                    <li>date()</li>
+                    <li>date(f)</li>
+                    <li>date(f, d0, d1)</li>
+                    <li>time()</li>
+                    <li>time(f)</li>
+                    <li>time(f, t0, t1)</li>
+                    <li>datetime(f)</li>
+                    <li>datetime(f, dt0, dt1)</li>
+                    <li>shape({key0:type0, key1:type1, ...}, s)</li>
+                    <li>shape({}, nostrict)</li>
+                    <li>shape({}, nostrict, s)</li>
+                    <li>map(key_type, value_type)</li>
+                    <li>map(key_type, value_type, n)</li>
+                    <li>map(key_type, value_type, n0, n1)</li>
+                    <li>base64()</li>
+                    <li>uu5String()</li>
+                    <li>uu5String(n)</li>
+                    <li>uu5Json()</li>
+                    <li>uu5Json(n)</li>
+                    <li>binary()</li>
+                    <li>isRequired(["key0", key1", ...])</li>
+                    <li>stringSetOf(["value0", ... ])</li>
+                    <li>stringSetOf(["value0", ... ], delimiter)</li>
+                </ul>
+            </div>
+        </div>
+        <div class="alert alert-info" role="alert">
+
+            <h4 class="alert-heading">Changelog</h4>
+            <p><strong>0.0.4-alpha (2020-07-26)</strong></p>
+            <ul>
+                <li>Fixed few usability and design issues.</li>
+                <li>Added support for hexa32Code and hexa64Code.</li>
+                <li>Changed validation of float type according to specification.</li>
+                <li>Fixed few typos.</li>
+                <li>Added validation for unwanted assigning validation types with possible suggestions to fix.</li>
+            </ul>
+            <p><strong>0.0.3-alpha (2020-07-14)</strong></p>
+            <ul>
+                <li>Fixed empty strings that were generated when no parameters was set.</li>
+                <li>Added possibility to detect null type.</li>
+                <li>Larger input for Validation schema and generated DtoIn.</li>
+            </ul>
+            <p><strong>0.0.2-alpha (2019-01-19)</strong></p>
+            <ul>
+                <li>Added dynamic url for sharing validation schemas with your friends!</li>
+                <li>Better validation of validation schemas based on method signatures and parameter types.</li>
+                <li>Fixed bug with same min and max length for strings.</li>
+                <li>Remembering last used validation schema.</li>
+                <li>Support for more validation types.</li>
+            </ul>
+            <p><strong>0.0.1-alpha (2018-10-21)</strong></p>
+            <ul>
+                <li>Generates dtoIn based on validation schema.</li>
+                <li>First release.</li>
+            </ul>
+        </div>
+    </div>
+<script type="text/javascript" src="./bundle.js"></script></body>
+</html>
