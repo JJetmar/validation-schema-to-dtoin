@@ -51,8 +51,9 @@ for (let type in validationTypes) {
 }
 
 let generateDtoIn = (schema) => {
-    let varName = schema.match(/\s*(const|var|let)\s+(\w+)\s*=/);
-    return JSON.stringify(eval(validationTypeFunctions.join(";") + ";" + schema + ";" + varName[2]), validationTypeSolver, 2);
+    const variables = schema.match(/[\s;]*(const|var|let)\s+(\w+)\s*=/mg);
+    const lastDefinedVariable = variables[variables.length -1].match(/[\s;]*(const|var|let)\s+(\w+)\s*=/m)[2];
+    return JSON.stringify(eval(validationTypeFunctions.join(";") + ";" + schema + ";" + lastDefinedVariable), validationTypeSolver, 2);
 };
 
 export default generateDtoIn;
