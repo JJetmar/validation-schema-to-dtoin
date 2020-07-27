@@ -1,4 +1,4 @@
-import ValidationModificator from "../../modificator/validation-modificator";
+import IsRequiredModificator from "../../modificator/is-required";
 
 export default class ValidationType {
     TYPE_NAME = "unNamedType";
@@ -19,9 +19,11 @@ export default class ValidationType {
         if (dependencies == null) {
             this._isRequired = true;
         } else {
-            throw "Validation function isRequired(...) with dependencies is not implemented yet!";
+            // TODO do warning emitter
+            //throw "Validation function isRequired(...) with dependencies is not implemented yet!";
+            console.warn("Validation function isRequired(...) with dependencies is not implemented yet!");
         }
-        return new ValidationModificator(this);
+        return new IsRequiredModificator(this);
     }
 
     generate() {
@@ -45,7 +47,6 @@ export default class ValidationType {
                         }
                     }
                     result &= altResult;
-
                 }
                 if (result) {
                     return this.resultSolver(() => params[paramTypes](this._params));

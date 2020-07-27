@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin'); // Require  html-webpack-plugin plugin
+const TerserPlugin = require('terser-webpack-plugin'); // Require  html-webpack-plugin plugin
 
 module.exports = {
     mode: 'none',
@@ -42,12 +43,22 @@ module.exports = {
     },
     plugins: [  // Array of plugins to apply to build chunk
         new HtmlWebpackPlugin({
-            template: __dirname + "/src/public/index.html",
-            inject: 'body',
+            template: __dirname + "/src/public/index.html"
         })
     ],
     devServer: {  // configuration for webpack-dev-server
         contentBase: './src/public',  //source of static assets
         port: 7700, // port to run dev-server
-    }
+    },
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    keep_classnames: false,
+                    keep_fnames: true
+                }
+            })
+        ]
+    },
 };
