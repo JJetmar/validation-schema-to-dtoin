@@ -10,8 +10,8 @@ export default class StringType extends ValidationType {
         return this.mapParams({
             "": () => random.string(),
             "regExp": (params) => random.regExp(params[0]),
-            "number": (params) => random.string(params[0]),
-            "number, number": (params) => random.string(params[0], params[1])
+            "integer": (params) => random.string(params[0]),
+            "integer, integer": (params) => random.string(params[0], params[1])
         });
     }
 

@@ -10,9 +10,9 @@ export default class FloatType extends ValidationType {
         return this.resultSolver(() => {
             return this.mapParams({
                 "": () => random.decimal(),
-                "number": (params) => random.decimal(null, null, params[0]),
-                "number, number": (params) => random.decimal(0, params[0], params[1]),
-                "number|null, number|null, number": (params) => random.decimal(params[0], params[1], params[2])
+                "integer": (params) => random.decimal(null, null, params[0]),
+                "integer, integer": (params) => random.decimal(0, params[0], params[1]),
+                "integer|null, integer|null, integer": (params) => random.decimal(params[0], params[1], params[2])
             });
         });
     }

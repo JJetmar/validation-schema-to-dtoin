@@ -9,7 +9,12 @@ export default class OneOfType extends ValidationType {
     generate() {
         return this.mapParams({
             "array": (params) => {
-                let index = random.integer(0, params[0].length - 1);
+                const numOfParams = params[0].length;
+                if (numOfParams === 0) {
+                    throw `There is no reason for assigning <strong>empty array</strong> into <strong>oneOf([])</strong> validation type. Did you mean to use <strong>oneOf([null])</strong>?`
+                }
+
+                let index = random.integer(0, numOfParams - 1);
                 return params[0][index];
             }
         });

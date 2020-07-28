@@ -1,6 +1,7 @@
 import IsRequiredModificator from "../../modificator/is-required";
 
 export default class ValidationType {
+    TYPE = "validationType"
     TYPE_NAME = "unNamedType";
     UU5_TYPE_NAME = "unNamed";
 
@@ -41,7 +42,8 @@ export default class ValidationType {
                     // alternative types
                     let altResult = false;
                     for (let altType of paramTypesSplitted[i].split(/\|/)) {
-                        altResult |= [this.getArgumentType(this._params[i]), "any"].includes(altType);
+                        const argumentTypes = this.getArgumentTypes(this._params[i]);
+                        altResult |= [...argumentTypes, "any"].includes(altType);
                         if (altResult) {
                             break;
                         }
@@ -56,22 +58,37 @@ export default class ValidationType {
         this.throwInvalidArgument()
     }
 
-    getArgumentType(obj) {
-        let resultType;
+    getArgumentTypes(obj) {
+        const resultTypes = [];
+
         if (obj === null) {
-            return "null";
-        }
-        else if (obj.TYPE_NAME != null) {
-            resultType = obj.TYPE_NAME;
-        } else if (obj.constructor) {
-            resultType = obj.constructor.name.charAt(0).toLowerCase() + obj.constructor.name.slice(1);
+            resultTypes.push("null");
         } else {
-            resultType = typeof obj;
+            if (obj.TYPE_NAME != null) {
+                resultTypes.push(obj.TYPE_NAME);
+            }
+            if (obj.constructor) {
+                const instanceType = obj.constructor.name.charAt(0).toLowerCase() + obj.constructor.name.slice(1);
+                if (instanceType === "number") {
+                    if (Math.floor(obj) === obj) {
+                        resultTypes.push("integer");
+                    } else {
+                        resultTypes.push("float");
+                    }
+                }
+                resultTypes.push(instanceType);
+            }
+            if (obj.TYPE) {
+                resultTypes.push(obj.TYPE);
+            }
+            const primitiveType = typeof obj;
+
+            resultTypes.push(primitiveType);
         }
-        return resultType;
+        return resultTypes;
     }
 
     throwInvalidArgument() {
-        throw `Undefined signature for <strong>${this.UU5_TYPE_NAME}(${(this._params.map(arg => this.getArgumentType(arg)).join(", "))})</strong>.`;
+        throw `Undefined signature for <strong>${this.UU5_TYPE_NAME}(&lt;${(this._params.map(arg => this.getArgumentTypes(arg)[0]).join("&gt;, &lt;"))}&gt;)</strong>.`;
     }
 }

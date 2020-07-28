@@ -1,6 +1,5 @@
 import ValidationType from "../core/types/validation-type";
 import { random } from "../core/random";
-import ShapeType from "./shape-type";
 
 export default class ArrayType extends ValidationType {
 
@@ -12,13 +11,13 @@ export default class ArrayType extends ValidationType {
             "": () => {
                 return this.generateArray();
             },
-            "any": (params) => {
+            "validationType": (params) => {
                 return this.generateArray(params[0]);
             },
-            "any, number": (params) => {
+            "validationType, integer": (params) => {
                 return this.generateArray(params[0], params[1]);
             },
-            "any, number, number": (params) => {
+            "validationType, integer, integer": (params) => {
                 return this.generateArray(params[0], params[1], params[2]);
             }
         });

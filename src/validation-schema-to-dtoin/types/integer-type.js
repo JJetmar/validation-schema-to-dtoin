@@ -9,8 +9,8 @@ export default class IntegerType extends ValidationType {
     generate() {
         return this.mapParams({
             "": () => random.integer(),
-            "number": (params) => random.integer(params[0]),
-            "number|null, number|null": (params) => random.integer(params[0], params[1])
+            "integer": (params) => random.integer(params[0]),
+            "integer|null, integer|null": (params) => random.integer(params[0], params[1])
         });
     }
 
