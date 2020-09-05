@@ -31,12 +31,14 @@ class Random {
         } else if (par1 != null && par2 === undefined) {
             min = 0;
             max = par1;
+        } else if (par1 != null && par2 == null) {
+            min = par1;
         }
         if (min == null) {
-            min = -10000; // TODO to config value
+            min = Number.MIN_SAFE_INTEGER; // TODO to config value
         }
         if (max == null) {
-            max = 10000; // TODO to config value
+            max = Number.MAX_SAFE_INTEGER; // TODO to config value
         }
 
         // TODO fix random function

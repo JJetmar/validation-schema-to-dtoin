@@ -49,7 +49,7 @@
                     <div class="form-group">
                         <textarea id="input" class="form-control h-auto text-monospace" style="max-height: calc(100vh - 10rem); overflow: auto" rows="15">const jokeDtoInType = shape({
   id: mongoId(),
-  joke: string(20,50),
+  joke: string(20,50).isRequired(),
   author: oneOf(["Karel", "Pepa", "Ivan"]),
   averageRating: float(0, 5, 1),
   comments: array(shape({
