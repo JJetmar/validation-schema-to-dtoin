@@ -1,5 +1,5 @@
 import ValidationType from "../core/types/validation-type";
-import {random} from "../core/random";
+import random from "../core/random";
 
 export default class CodeType extends ValidationType {
 

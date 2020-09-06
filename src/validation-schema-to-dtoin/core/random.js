@@ -105,4 +105,4 @@ class Random {
         }
     }
 }
-export let random = new Random();
+export default new Random();

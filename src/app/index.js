@@ -1,6 +1,6 @@
 import './bootstrap-custom.scss';
 import '../../src/public/style.css';
-import { random } from "../validation-schema-to-dtoin/core/random";
+import random from "../validation-schema-to-dtoin/core/random";
 import generateDtoIn from "../validation-schema-to-dtoin/validation-schema-to-dtoin";
 import Debouncer from "./debouncer";
 
