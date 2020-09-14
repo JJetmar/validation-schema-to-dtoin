@@ -17,7 +17,7 @@ export default class ArrayType extends ValidationType {
             "validationType, integer": (params) => {
                 return this.generateArray(params[0], params[1]);
             },
-            "validationType, integer, integer": (params) => {
+            "validationType, integer, integer|null": (params) => {
                 return this.generateArray(params[0], params[1], params[2]);
             }
         });
